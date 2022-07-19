@@ -8,14 +8,13 @@ from rest_framework.exceptions import AuthenticationFailed
 
 # Create your views here.
 
-class RegisterView(APIView):
-    permission_classes=[AllowAny]
-    def post(self,request):
-        serializer=UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
 
+
+class RegisterView(generics.ListCreateAPIView):
+    queryset=NewUser.objects.all()
+    permission_classes=[AllowAny]
+    serializer_class=UserSerializer
+    
 # class LoginView(APIView):
 #     def post(self,request):
 #         email=request.data['email']
